@@ -1,0 +1,6 @@
+TELEGRAM_BOT_TOKEN: "7235001229:AAEyennUe0-uSrEYd_K62F16WxWHAD5WTUs"
+TELEGRAM_CHAT_ID: "1993418482"
+SEARCH_URL: "https://www.imovirtual.com/comprar-casa/porto"
+WORK_HOURS:
+  start: "09:00"
+  end: "20:00"

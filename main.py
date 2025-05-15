@@ -1,16 +1,14 @@
-# This is a sample Python script.
+import sys
+from db.database import init_db
+from scrapers.idealista import scrape_idealista_target
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+if __name__ == "__main__":
+    init_db()
 
+    if len(sys.argv) != 2:
+        print("❗ Uso correto: python main.py <target_id>")
+        print("Exemplo: python main.py gaia-casas")
+        sys.exit(1)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    target_id = sys.argv[1]
+    scrape_idealista_target(target_id)
