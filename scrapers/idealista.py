@@ -1,3 +1,4 @@
+# scrapers/idealista.py
 from playwright.sync_api import sync_playwright
 from bs4 import BeautifulSoup
 from db.database import save_listing, listing_exists
@@ -33,19 +34,22 @@ def scrape_idealista_target(target_id):
     url = TARGETS[target_id]
 
     with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
+        browser = p.chromium.launch(headless=True)
         context = browser.new_context(
             user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
-            viewport={"width": 1920, "height": 1080}
+            viewport={"width": 1280, "height": 800},
+            java_script_enabled=True,
+            locale="pt-PT"
         )
         page = context.new_page()
 
         print(f"🔍 A procurar em: {target_id}")
         page.goto(url, timeout=60000)
+        page.wait_for_timeout(3000)  # Simula tempo de carregamento
 
-        for _ in range(3):
-            page.mouse.wheel(0, 1000)
-            time.sleep(2)
+        for _ in range(4):
+            page.mouse.wheel(0, 800)
+            time.sleep(1.5)
 
         html = page.content()
         soup = BeautifulSoup(html, "html.parser")
